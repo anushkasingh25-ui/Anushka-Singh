@@ -22,9 +22,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+app.use(express.static(process.cwd()));
 
 app.get("/", (req, res) => {
-    res.send("Anushka Portfolio Backend is Running!");
+    res.sendFile(process.cwd() + "/index.html");
 });
 
 

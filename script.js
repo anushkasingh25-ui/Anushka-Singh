@@ -1,5 +1,3 @@
-
-
 const typingText = document.getElementById("typing-text");
 
 const words = [
@@ -45,7 +43,6 @@ if (typingText) {
 }
 
 
-/* 2. NAVIGATION ACTIVE LINK */
 
 const navLinks = document.querySelectorAll(".nav-links a");
 
@@ -81,7 +78,6 @@ window.addEventListener("scroll", updateActiveLink, {
 updateActiveLink();
 
 
-/* 3. SMOOTH NAVIGATION */
 
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (event) => {
@@ -108,8 +104,6 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     });
 });
 
-
-/* 4. PROJECT CARD ENTRANCE ANIMATION */
 
 const projectCards = document.querySelectorAll(".project-card");
 
@@ -150,9 +144,7 @@ if ("IntersectionObserver" in window) {
 }
 
 
-/* 5. FOOTER YEAR */
-
-const footerText = document.querySelector(".footer p");
+const footerText = document.querySelector(".footer-copyright");
 
 if (footerText) {
     footerText.textContent =
@@ -160,9 +152,7 @@ if (footerText) {
 }
 
 
-/* ==========================================
-   6. INTERACTIVE ANIMATED BACKGROUND
-========================================== */
+
 
 const ambientCanvas = document.getElementById("ambient-canvas");
 const cursorGlow = document.getElementById("cursor-glow");
@@ -170,183 +160,173 @@ const cursorGlow = document.getElementById("cursor-glow");
 if (ambientCanvas) {
     const ctx = ambientCanvas.getContext("2d");
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    let particles = [];
+    if (ctx) {
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        let particles = [];
 
-    const mouse = {
-        x: -1000,
-        y: -1000,
-        active: false
-    };
+        const mouse = {
+            x: -1000,
+            y: -1000,
+            active: false
+        };
 
-    const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches;
+        const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
 
-    function resizeCanvas() {
-        width = window.innerWidth;
-        height = window.innerHeight;
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
 
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-        ambientCanvas.width = width * dpr;
-        ambientCanvas.height = height * dpr;
+            ambientCanvas.width = width * dpr;
+            ambientCanvas.height = height * dpr;
 
-        ambientCanvas.style.width = width + "px";
-        ambientCanvas.style.height = height + "px";
+            ambientCanvas.style.width = width + "px";
+            ambientCanvas.style.height = height + "px";
 
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        const particleCount = Math.min(
-            100,
-            Math.max(35, Math.floor((width * height) / 13000))
-        );
+            const particleCount = Math.min(
+                100,
+                Math.max(35, Math.floor((width * height) / 13000))
+            );
 
-        particles = Array.from(
-            { length: particleCount },
-            () => ({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.45,
-                vy: (Math.random() - 0.5) * 0.45,
-                radius: Math.random() * 2 + 1
-            })
-        );
-    }
-
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    /* Mouse position */
-
-    window.addEventListener("pointermove", (event) => {
-        mouse.x = event.clientX;
-        mouse.y = event.clientY;
-        mouse.active = true;
-
-        if (cursorGlow) {
-            cursorGlow.style.left = mouse.x + "px";
-            cursorGlow.style.top = mouse.y + "px";
+            particles = Array.from(
+                { length: particleCount },
+                () => ({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: (Math.random() - 0.5) * 0.45,
+                    radius: Math.random() * 2 + 1
+                })
+            );
         }
-    }, { passive: true });
 
-    window.addEventListener("pointerleave", () => {
-        mouse.active = false;
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
 
-        if (cursorGlow) {
-            cursorGlow.style.opacity = "0";
-        }
-    });
+        window.addEventListener("pointermove", (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+            mouse.active = true;
 
-    window.addEventListener("pointerenter", () => {
-        if (cursorGlow) {
-            cursorGlow.style.opacity = "1";
-        }
-    });
+            if (cursorGlow) {
+                cursorGlow.style.left = mouse.x + "px";
+                cursorGlow.style.top = mouse.y + "px";
+            }
+        }, { passive: true });
 
-    /* Animate particles */
+        window.addEventListener("pointerleave", () => {
+            mouse.active = false;
 
-    function animateBackground() {
-        ctx.clearRect(0, 0, width, height);
+            if (cursorGlow) {
+                cursorGlow.style.opacity = "0";
+            }
+        });
 
-        particles.forEach((particle, index) => {
-            if (!reduceMotion) {
-                particle.x += particle.vx;
-                particle.y += particle.vy;
+        window.addEventListener("pointerenter", () => {
+            if (cursorGlow) {
+                cursorGlow.style.opacity = "1";
+            }
+        });
 
-                // Wrap particles around screen edges
-                if (particle.x < 0) particle.x = width;
-                if (particle.x > width) particle.x = 0;
-                if (particle.y < 0) particle.y = height;
-                if (particle.y > height) particle.y = 0;
+        function animateBackground() {
+            ctx.clearRect(0, 0, width, height);
 
-                // Mouse attraction / repulsion
-                if (mouse.active) {
+            particles.forEach((particle, index) => {
+                if (!reduceMotion) {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+
+                    if (particle.x < 0) particle.x = width;
+                    if (particle.x > width) particle.x = 0;
+                    if (particle.y < 0) particle.y = height;
+                    if (particle.y > height) particle.y = 0;
+
+                    if (mouse.active) {
+                        const dx = mouse.x - particle.x;
+                        const dy = mouse.y - particle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 150 && distance > 0) {
+                            const force = (150 - distance) / 150;
+
+                            particle.x -= (dx / distance) * force * 0.8;
+                            particle.y -= (dy / distance) * force * 0.8;
+                        }
+                    }
+                }
+
+                for (let j = index + 1; j < particles.length; j++) {
+                    const other = particles[j];
+
+                    const dx = particle.x - other.x;
+                    const dy = particle.y - other.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 115) {
+                        ctx.beginPath();
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(other.x, other.y);
+
+                        ctx.strokeStyle =
+                            `rgba(168, 85, 247, ${0.22 * (1 - distance / 115)})`;
+
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+
+                ctx.beginPath();
+                ctx.arc(
+                    particle.x,
+                    particle.y,
+                    particle.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fillStyle = index % 3 === 0
+                    ? "#67e8f9"
+                    : "#c084fc";
+
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = ctx.fillStyle;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            if (mouse.active) {
+                particles.forEach((particle) => {
                     const dx = mouse.x - particle.x;
                     const dy = mouse.y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 150 && distance > 0) {
-                        const force = (150 - distance) / 150;
+                    if (distance < 145) {
+                        ctx.beginPath();
+                        ctx.moveTo(mouse.x, mouse.y);
+                        ctx.lineTo(particle.x, particle.y);
 
-                        particle.x -= (dx / distance) * force * 0.8;
-                        particle.y -= (dy / distance) * force * 0.8;
+                        ctx.strokeStyle =
+                            `rgba(103, 232, 249, ${0.35 * (1 - distance / 145)})`;
+
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
                     }
-                }
+                });
             }
 
-            // Connect nearby particles
-            for (let j = index + 1; j < particles.length; j++) {
-                const other = particles[j];
-                const dx = particle.x - other.x;
-                const dy = particle.y - other.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 115) {
-                    ctx.beginPath();
-                    ctx.moveTo(particle.x, particle.y);
-                    ctx.lineTo(other.x, other.y);
-
-                    ctx.strokeStyle =
-                        `rgba(168, 85, 247, ${0.22 * (1 - distance / 115)})`;
-
-                    ctx.lineWidth = 0.8;
-                    ctx.stroke();
-                }
-            }
-
-            // Particle glow
-            ctx.beginPath();
-            ctx.arc(
-                particle.x,
-                particle.y,
-                particle.radius,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fillStyle = index % 3 === 0
-                ? "#67e8f9"
-                : "#c084fc";
-
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = ctx.fillStyle;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        });
-
-        // Draw mouse connection lines
-        if (mouse.active) {
-            particles.forEach((particle) => {
-                const dx = mouse.x - particle.x;
-                const dy = mouse.y - particle.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 145) {
-                    ctx.beginPath();
-                    ctx.moveTo(mouse.x, mouse.y);
-                    ctx.lineTo(particle.x, particle.y);
-
-                    ctx.strokeStyle =
-                        `rgba(103, 232, 249, ${0.35 * (1 - distance / 145)})`;
-
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-            });
+            requestAnimationFrame(animateBackground);
         }
 
-        requestAnimationFrame(animateBackground);
+        animateBackground();
     }
-
-    animateBackground();
 }
 
-
-/* ==========================================
-   7. INTERACTIVE SKILL AND PROJECT CARDS
-========================================== */
 
 const interactiveCards = document.querySelectorAll(
     ".skill-card, .project-card, .detail-card"
@@ -369,7 +349,83 @@ interactiveCards.forEach((card) => {
     });
 });
 
-console.log("Interactive portfolio background loaded 💜");
 
 
+const contactForm = document.getElementById("contact-form");
+const formStatus = document.getElementById("form-status");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const name = document.getElementById("name")?.value.trim();
+        const email = document.getElementById("email")?.value.trim();
+        const subject = document.getElementById("subject")?.value.trim();
+        const message = document.getElementById("message")?.value.trim();
+
+        const submitButton = contactForm.querySelector(
+            'button[type="submit"]'
+        );
+
+        if (!submitButton || !formStatus) return;
+
+        try {
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+
+            formStatus.textContent = "Sending your message...";
+
+            const response = await fetch(
+                "http://localhost:5000/api/contact",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        subject,
+                        message
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Failed to send message"
+                );
+            }
+
+            formStatus.textContent =
+                data.message || "Message sent successfully!";
+
+            contactForm.reset();
+
+        } catch (error) {
+
+            console.error("Contact Form Error:", error);
+
+            formStatus.textContent =
+                error.message || "Something went wrong. Please try again.";
+
+        } finally {
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Send Message ↗";
+
+        }
+
+    });
+
+}
+
+console.log("Interactive portfolio loaded successfully 💜");
 

@@ -80,9 +80,6 @@ img {
 }
 
 
-/* =========================
-   2. ANIMATED BACKGROUND
-========================= */
 
 #ambient-canvas {
     position: fixed;
@@ -114,9 +111,6 @@ img {
 }
 
 
-/* =========================
-   3. NAVIGATION
-========================= */
 
 .navbar {
     width: min(1180px, 92%);
@@ -176,10 +170,6 @@ img {
 }
 
 
-/* =========================
-   4. BUTTONS
-========================= */
-
 .primary-button,
 .secondary-button {
     display: inline-flex;
@@ -218,9 +208,6 @@ img {
 }
 
 
-/* =========================
-   5. HOME / HERO
-========================= */
 
 .hero-section {
     min-height: 660px;
@@ -335,9 +322,6 @@ img {
 }
 
 
-/* =========================
-   6. THREE.JS ROBOT
-========================= */
 
 .robot-side {
     min-width: 0;
@@ -390,10 +374,6 @@ img {
 }
 
 
-/* =========================
-   7. SECTION HEADINGS
-========================= */
-
 .section-heading {
     text-align: center;
     margin-bottom: 48px;
@@ -415,10 +395,6 @@ img {
     margin-top: 12px;
 }
 
-
-/* =========================
-   8. ABOUT SECTION
-========================= */
 
 .about-layout {
     display: grid;
@@ -547,10 +523,6 @@ img {
 }
 
 
-/* =========================
-   9. SKILLS
-========================= */
-
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -598,9 +570,7 @@ img {
 }
 
 
-/* =========================
-   10. PROJECTS
-========================= */
+
 
 .projects-grid {
     display: grid;
@@ -732,84 +702,161 @@ img {
 }
 
 
-/* =========================
-   11. CONTACT
-========================= */
+
+#contact {
+    position: relative;
+    padding: 100px 0;
+}
+
+#contact .section-heading {
+    margin-bottom: 42px;
+}
 
 .contact-card {
-    max-width: 650px;
+    position: relative;
+    width: min(100%, 760px);
+    min-height: 330px;
     margin: 0 auto;
+    padding: 55px 30px;
     text-align: center;
-    padding: 45px 25px;
-    border: 1px solid var(--border);
+    overflow: hidden;
+
+    border: 1px solid rgba(192, 132, 252, 0.3);
     border-radius: 25px;
+
     background: linear-gradient(
-        135deg,
-        rgba(168, 85, 247, 0.1),
-        rgba(103, 232, 249, 0.035)
+        145deg,
+        rgba(42, 23, 65, 0.85),
+        rgba(20, 13, 37, 0.92)
     );
+
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(18px);
+
+    transition: 0.3s ease;
+}
+
+.contact-card:hover {
+    border-color: rgba(192, 132, 252, 0.7);
+    box-shadow: 0 15px 50px rgba(147, 51, 234, 0.15);
 }
 
 .contact-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
+    font-size: 45px;
+    margin-bottom: 18px;
+    filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.5));
 }
 
 .contact-card h3 {
-    font-size: 25px;
-    margin-bottom: 12px;
+    color: var(--text);
+    font-size: clamp(22px, 4vw, 29px);
+    margin-bottom: 14px;
 }
 
 .contact-card > p {
-    max-width: 450px;
-    margin: 0 auto 25px;
+    max-width: 490px;
+    margin: 0 auto 28px;
     color: var(--muted);
-    font-size: 13px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.contact-card .primary-button {
+    min-width: 130px;
+    padding: 14px 24px;
+    border-radius: 12px;
 }
 
 .contact-socials {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    margin-top: 24px;
+    align-items: center;
+    gap: 28px;
+    margin-top: 28px;
+}
+
+.contact-socials a {
     color: var(--light-purple);
-    font-size: 12px;
+    font-size: 13px;
+    transition: 0.25s ease;
 }
 
 .contact-socials a:hover {
     color: var(--cyan);
+    transform: translateY(-3px);
 }
 
 
-/* =========================
-   12. FOOTER
-========================= */
 
 .footer {
     width: min(1180px, 92%);
     margin: 20px auto 0;
-    padding: 28px 0;
-    border-top: 1px solid var(--border);
+    padding: 30px 0;
+
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     gap: 20px;
+
+    border-top: 1px solid var(--border);
 }
 
-.footer p,
-.back-to-top {
+.footer p {
     color: var(--muted);
-    font-size: 11px;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.footer .logo {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.back-to-top {
+    color: var(--light-purple);
+    font-size: 12px;
+    transition: 0.25s ease;
 }
 
 .back-to-top:hover {
-    color: var(--light-purple);
+    color: var(--cyan);
+    transform: translateY(-3px);
 }
 
 
-/* =========================
-   13. ANIMATIONS
-========================= */
+
+@media (max-width: 680px) {
+
+    #contact {
+        padding: 70px 0;
+    }
+
+    .contact-card {
+        min-height: auto;
+        padding: 40px 20px;
+        border-radius: 20px;
+    }
+
+    .contact-card h3 {
+        font-size: 23px;
+    }
+
+    .contact-card > p {
+        font-size: 12px;
+    }
+
+    .contact-socials {
+        gap: 22px;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px 0;
+        gap: 13px;
+    }
+}
+
 
 @keyframes profileFloat {
     0%, 100% {
@@ -841,9 +888,6 @@ img {
 }
 
 
-/* =========================
-   14. TABLET RESPONSIVE
-========================= */
 
 @media (max-width: 950px) {
     .nav-links {
@@ -869,9 +913,7 @@ img {
 }
 
 
-/* =========================
-   15. MOBILE RESPONSIVE
-========================= */
+
 
 @media (max-width: 680px) {
     .navbar {
@@ -990,10 +1032,6 @@ img {
     }
 }
 
-
-/* =========================
-   16. SMALL MOBILE
-========================= */
 
 @media (max-width: 380px) {
     .skills-grid {
@@ -1267,10 +1305,6 @@ img {
 }
 
 
-/* ==========================================
-   INTERACTIVE BACKGROUND EFFECTS
-========================================== */
-
 #ambient-canvas {
     position: fixed;
     inset: 0;
@@ -1303,7 +1337,7 @@ img {
     will-change: left, top;
 }
 
-/* Mouse-following light inside cards */
+
 
 .skill-card,
 .project-card,
@@ -1338,7 +1372,6 @@ img {
     opacity: 1;
 }
 
-/* Glowing borders on hover */
 
 .skill-card:hover,
 .project-card:hover,
@@ -1346,7 +1379,7 @@ img {
     border-color: rgba(192, 132, 252, 0.75);
 }
 
-/* Keep content above the glow */
+
 
 .skill-card > *,
 .project-card > *,
@@ -1354,7 +1387,6 @@ img {
     position: relative;
 }
 
-/* Mobile and reduced-motion support */
 
 @media (max-width: 680px) {
     #cursor-glow {
@@ -1423,9 +1455,6 @@ img {
     opacity: 1;
 }
 
-/* ==================================
-   PROFESSIONAL PROJECTS SECTION
-================================== */
 
 .projects-section {
     position: relative;
@@ -1666,7 +1695,6 @@ img {
     color: #67e8f9;
 }
 
-/* Tablet and mobile */
 
 @media (max-width: 760px) {
     .projects-section {
@@ -1713,4 +1741,159 @@ img {
     .project-btn:hover {
         transform: none;
     }
+}
+
+#contact {
+    padding: 90px 0;
+}
+
+.contact-container {
+    width: min(100%, 1050px);
+    margin: 35px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.contact-info-card,
+.contact-form-card {
+    padding: 28px;
+    border: 1px solid rgba(192, 132, 252, 0.18);
+    border-radius: 18px;
+    background: rgba(35, 25, 49, 0.72);
+    backdrop-filter: blur(15px);
+    min-width: 0;
+}
+
+.contact-info-card h3 {
+    color: var(--text);
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.contact-info-card > p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.detail-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    font-size: 19px;
+}
+
+.contact-detail small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.contact-detail a,
+.contact-detail p {
+    color: var(--text);
+    font-size: 13px;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    margin: 0;
+}
+
+.contact-detail a:hover {
+    color: var(--cyan);
+}
+
+
+
+.contact-form-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.contact-form-card input,
+.contact-form-card textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(192, 132, 252, 0.15);
+    border-radius: 10px;
+    outline: none;
+    background: rgba(13, 7, 24, 0.8);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    transition: 0.3s ease;
+}
+
+.contact-form-card input:focus,
+.contact-form-card textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.12);
+}
+
+.contact-form-card textarea {
+    resize: vertical;
+    min-height: 125px;
+}
+
+.contact-form-card input::placeholder,
+.contact-form-card textarea::placeholder {
+    color: var(--muted);
+}
+
+.contact-form-card button {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+#form-status {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--cyan);
+    text-align: center;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 680px) {
+
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    .contact-info-card,
+    .contact-form-card {
+        padding: 22px 18px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
 }
